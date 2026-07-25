@@ -34,7 +34,7 @@ def train_and_save_model(data_path: Path = DATA_PATH):
     
     pipeline = Pipeline([
         ("tfidf", TfidfVectorizer(ngram_range=(1, 2))),
-        ("clf", LogisticRegression(max_iter=1000)),
+        ("clf", LogisticRegression(max_iter=1000, class_weight="balanced")),
     ])
     
     pipeline.fit(X_train, y_train)
