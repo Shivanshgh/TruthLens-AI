@@ -47,8 +47,16 @@ def main():
             ml_res = predict_ml(user_input)
             ml_score = ml_res["reliable_probability"] * 100
 
-            red_flags = detect_red_flags(user_input)
-            linguistic_score = max(0, 100 - (len(red_flags) * 25))
+        red_flags = detect_red_flags(user_input)
+
+
+        if red_flags is None:
+            
+            red_flags = []
+        elif not isinstance(red_flags, list):
+            red_flags = list(red_flags)
+
+        linguistic_score = max(0, 100 - (len(red_flags) * 25))
 
             claims = extract_claims_with_llm(user_input, provider=llm_provider, api_key=api_key_input)
 
