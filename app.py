@@ -58,7 +58,7 @@ def main():
 
         linguistic_score = max(0, 100 - (len(red_flags) * 25))
 
-         claims = extract_claims_with_llm(user_input, provider=llm_provider, api_key=api_key_input)
+        claims = extract_claims_with_llm(user_input, provider=llm_provider, api_key=api_key_input)
 
             all_evidence = []
             for c in claims[:2]:
