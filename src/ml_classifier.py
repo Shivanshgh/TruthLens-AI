@@ -8,8 +8,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from src.preprocessing import clean_text
 
-MODEL_PATH = Path("models/misinfo_classifier.pkl")
-DATA_PATH = Path("data/dataset.csv")
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+MODEL_PATH = BASE_DIR / "models" / "misinfo_classifier.pkl"
+DATA_PATH = BASE_DIR / "data" / "dataset.csv"
 
 def train_and_save_model(data_path: Path = DATA_PATH):
     if not data_path.exists():
