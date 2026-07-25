@@ -59,7 +59,14 @@ def predict_ml(text: str) -> dict:
     model = load_model()
     cleaned = clean_text(text)
     
+    print("MODEL TYPE:", type(model))
+    print("CLEANED TYPE:", type(cleaned))
+    print("CLEANED TEXT:", cleaned)
+
     probs = model.predict_proba([cleaned])[0]
+
+    print("PROBS TYPE:", type(probs))
+    print("PROBS:", probs)
     classes = model.classes_
     
     prob_dict = {cls: float(prob) for cls, prob in zip(classes, probs)}
