@@ -60,25 +60,26 @@ def main():
 
         claims = extract_claims_with_llm(user_input, provider=llm_provider, api_key=api_key_input)
 
-            all_evidence = []
-            for c in claims[:2]:
-                results = search_web_evidence(c["claim"], api_key=search_api_key)
-                all_evidence.extend(results)
+        all_evidence = []
+        for c in claims[:2]:
+            results = search_web_evidence(c["claim"], api_key=search_api_key)
+            all_evidence.extend(results)
 
-            llm_res = {}
-            if llm_provider != "None":
-                llm_res = analyze_with_llm(user_input, claims, all_evidence, provider=llm_provider, api_key=api_key_input)
+        llm_res = {}
+        if llm_provider != "None":
+            llm_res = analyze_with_llm(user_input, claims, all_evidence, provider=llm_provider, api_key=api_key_input)
             
-            llm_score = llm_res.get("factual_grounding_score", 0.5) * 100
+        llm_score = llm_res.get("factual_grounding_score", 0.5) * 100
             
-            if all_evidence:
-                evidence_score = 75.0 if llm_res.get("overall_assessment") == "supported" else 40.0
-                source_quality = 70.0
-            else:
-                evidence_score = 50.0
-                source_quality = 50.0
+        if all_evidence:
+            
+            evidence_score = 75.0 if llm_res.get("overall_assessment") == "supported" else 40.0
+            source_quality = 70.0
+        else:
+            evidence_score = 50.0
+            source_quality = 50.0
 
-            scoring_result = compute_credibility_score(evidence_score, source_quality, ml_score, linguistic_score, llm_score)
+        scoring_result = compute_credibility_score(evidence_score, source_quality, ml_score, linguistic_score, llm_score)
 
         st.divider()
         col1, col2, col3 = st.columns(3)
