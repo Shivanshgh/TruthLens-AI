@@ -26,7 +26,7 @@ def train_and_save_model(data_path: Path = DATA_PATH):
     df["label"] = df["label"].str.lower().map(label_map).fillna("reliable")
     
     cleaned_texts = [clean_text(t) for t in df["text"]]
-    labels = df["label"].values
+    labels = df["label"].astype(str).to_numpy()
     
     X_train, X_test, y_train, y_test = train_test_split(
         cleaned_texts, labels, test_size=0.2, random_state=42, stratify=labels
