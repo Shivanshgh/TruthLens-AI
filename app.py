@@ -2,6 +2,8 @@ import streamlit as st
 import os
 import nltk
 nltk.download("punkt_tab")
+nltk.download("punkt")
+nltk.download("vader_lexicon")
 from src.ml_classifier import predict_ml
 from src.red_flags import detect_red_flags
 from src.claim_extractor import extract_claims_with_llm
